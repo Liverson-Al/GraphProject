@@ -9,7 +9,7 @@ def write_output_to_file(output_filename: str, output: List[str]):
 
 if __name__ == '__main__':
     output=[]
-    filename="small-graph"
+    filename="radoslaw_email_email"
     graph=read_undirected_graph(filename, 1)
     output.append("Количество вершин и рёбер графа:"+str(graph.v)+","+str(graph.e))
     dense=(2*graph.e)/((graph.v-1)*graph.v)
@@ -20,8 +20,8 @@ if __name__ == '__main__':
     random_part=sample(mwcc, min(500, len(mwcc)))
     r,d,p=calculate_radius_diameter_percentile(graph,random_part)
     output.append("Радиус, диаметр, 90 процентиль:"+str(r)+","+str(d)+","+str(p))
-    acl=average_clustering(graph,random_part)
-    output.append("Средний кластерный коэффициент для наибольшей компоненты слабой связности:"+str( acl))
-    coef=calculate_coef_pirs(graph,random_part)
+    acl=average_clustering(graph,mwcc)
+    output.append("Средний кластерный коэффициент для наибольшей компоненты слабой связности:"+str(acl))
+    coef=calculate_coef_pirs(graph,mwcc)
     output.append("Коэффициент ассортативности:"+str(coef))
     write_output_to_file("output/"+filename+".txt", output)

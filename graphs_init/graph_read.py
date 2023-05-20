@@ -11,7 +11,9 @@ def read_undirected_graph(filename: str,split: int) -> UndirectedGraph:
         for line in file:
             if line.startswith("%"):
                 continue
-            node_from, node_to, w, t = line.split(split_symb)
+            node_from, node_to, t = line.split(split_symb,2)
             t=t[:-1]
+            space=t.rfind(" ")
+            t=t[space+1:]
             graph.add_edge(int(node_from), int(node_to), t)
     return graph

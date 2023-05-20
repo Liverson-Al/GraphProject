@@ -97,7 +97,7 @@ def average_clustering(graph: UndirectedGraph, nodes: List[int]) -> float:
                 for nn in graph.edge_map[neigbour].keys():
                     if nn in neigbours and nn not in visited:
                         Lu+=1
-                        visited.append(nn)
+                visited.append(neigbour)
             Cl+=2*Lu/(gamma*(gamma-1))
     return Cl/graph.v
 
