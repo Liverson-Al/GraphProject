@@ -1,6 +1,7 @@
 from graphs_init.undirected_graph import UndirectedGraph
 from typing import Set, Tuple, List
 from math import inf
+from random import sample
 
 #Функция для нахождения максимальной по мощности компоненты слабой связности и числа компонент слабой связности
 def get_max_weakly_connected_component(graph: UndirectedGraph) -> Tuple[List[int], int]:
@@ -114,12 +115,20 @@ def calculate_coef_pirs(graph: UndirectedGraph, nodes: List[int]) -> float:
         R2+=(k_i**2)
         R3+=(k_i**3)
         for node_2 in nodes:
-            if node_2==node_1:
-                continue
-            else:
-                if node_2 in neigbours: 
-                    k_j=len(graph.edge_map[node_2].keys())
-                    Re+=(k_i*k_j)
+            if node_2 in neigbours: 
+                k_j=len(graph.edge_map[node_2].keys())
+                Re+=(k_i*k_j)
     return (Re*R1-R2**2)/(R3*R1-R2**2)
+
+def get_snowball(graph: UndirectedGraph, start_node_list: List[int], start_nodes_count:int,number_of_nodes_in_list:int)->List[int]:
+    start_list=sample(start_node_list,start_nodes_count)
+    i=0
+    while len(start_list)<min(number_of_nodes_in_list,len(graph.edge_map.keys())):
+        for v in graph.edge_map[start_list[i]].keys():
+            if v not in start_list:
+                start_list.append(v)
+        i+=1
+    return start_list
+
 
 
