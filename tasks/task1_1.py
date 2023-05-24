@@ -89,7 +89,10 @@ def average_clustering(graph: UndirectedGraph, nodes: List[int]) -> float:
     Cl=0
     for node in nodes:
         neigbours=graph.edge_map[node].keys()
-        gamma=len(neigbours)
+        minus_if_loop=0
+        if node in neigbours:
+            minus_if_loop=-1
+        gamma=len(neigbours)+minus_if_loop
         if gamma>=2:
             visited = []
             visited.append(node)
@@ -110,13 +113,21 @@ def calculate_coef_pirs(graph: UndirectedGraph, nodes: List[int]) -> float:
     Re=0
     for node_1 in nodes:
         neigbours=graph.edge_map[node_1].keys()
-        k_i=len(neigbours)
+        minus_if_loop=0
+        if node_1 in neigbours:
+            minus_if_loop=-1
+        k_i=len(neigbours)+minus_if_loop
         R1+=k_i
         R2+=(k_i**2)
         R3+=(k_i**3)
         for node_2 in nodes:
+            if node_1==node_2:
+                continue
             if node_2 in neigbours: 
-                k_j=len(graph.edge_map[node_2].keys())
+                minus_if_loop=0
+                if node_2 in graph.edge_map[node_2].keys():
+                    minus_if_loop=-1
+                k_j=len(graph.edge_map[node_2].keys())+minus_if_loop
                 Re+=(k_i*k_j)
     return (Re*R1-R2**2)/(R3*R1-R2**2)
 

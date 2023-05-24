@@ -16,7 +16,7 @@ if __name__ == '__main__':
     output.append("Плотность графа:"+str(dense))
     mwcc,wcc_count=get_max_weakly_connected_component(graph)
     output.append("Число компонент слабой связности:"+str(wcc_count))
-    output.append("Доля вершин:"+str( len(mwcc)/graph.e))
+    output.append("Доля вершин:"+str(len(mwcc)/graph.v))
     random_part=sample(mwcc, min(500, len(mwcc)))
     snowball_part=get_snowball(graph,mwcc,3,500)
     r_rand,d_rand,p_rand=calculate_radius_diameter_percentile(graph,random_part)
