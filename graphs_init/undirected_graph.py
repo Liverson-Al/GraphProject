@@ -25,5 +25,7 @@ class UndirectedGraph:
         else:
             self.edge_map[a][b]=[t]
             self.edge_map[b][a]=[t]
+            self.edge_map[a][b].sort()
+            self.edge_map[b][a].sort()
             self.e += 1
         self.me+=1
