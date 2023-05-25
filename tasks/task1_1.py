@@ -134,7 +134,7 @@ def calculate_coef_pirs(graph: UndirectedGraph, nodes: List[int]) -> float:
 def get_snowball(graph: UndirectedGraph, start_node_list: List[int], start_nodes_count:int,number_of_nodes_in_list:int)->List[int]:
     start_list=sample(start_node_list,start_nodes_count)
     i=0
-    while len(start_list)<min(number_of_nodes_in_list,len(graph.edge_map.keys())):
+    while len(start_list)<min(number_of_nodes_in_list,len(start_node_list)):
         for v in graph.edge_map[start_list[i]].keys():
             if v not in start_list:
                 start_list.append(v)

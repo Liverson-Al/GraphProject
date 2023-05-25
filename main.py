@@ -9,7 +9,7 @@ def write_output_to_file(output_filename: str, output: List[str]):
 
 if __name__ == '__main__':
     output=[]
-    filename="radoslaw_email_email"
+    filename="sample"
     graph=read_undirected_graph(filename, 1)
     output.append("Количество вершин и рёбер графа:"+str(graph.v)+","+str(graph.e))
     dense=(2*graph.e)/((graph.v-1)*graph.v)
