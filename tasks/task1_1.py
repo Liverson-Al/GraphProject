@@ -2,6 +2,7 @@ from graphs_init.undirected_graph import UndirectedGraph
 from typing import Set, Tuple, List
 from math import inf
 from random import sample
+import numpy as np
 
 #Функция для нахождения максимальной по мощности компоненты слабой связности и числа компонент слабой связности
 def get_max_weakly_connected_component(graph: UndirectedGraph) -> Tuple[List[int], int]:
@@ -53,11 +54,12 @@ def calculate_eccentricity_and_ranges(graph: UndirectedGraph, start: int, random
                 queue.append(neighbour)
     return eccentricity, ranges
 
-#Функция для вычисления радиуса, диаметра, 90 процентиля расстояний (работает только для графов с большим количеством связных вершин)
+#Функция для вычисления радиуса, диаметра, 90 процентиля расстояний
 def calculate_radius_diameter_percentile(graph: UndirectedGraph, nodes: List[int]) -> Tuple[int, int, int]:
     ranges = [] #Массив для хранения количества вершин на i позиции, до которых можно дойти за i+1 шаг из любой другой вершины
     radius = inf
     diameter = 0
+    percentile=0
     for i in range(len(nodes)):
         eccentricity, node_ranges = calculate_eccentricity_and_ranges(graph, nodes[i], nodes)
         #Объединим два массива для дальнешего вычисления процентиля
@@ -67,7 +69,15 @@ def calculate_radius_diameter_percentile(graph: UndirectedGraph, nodes: List[int
             ranges += node_ranges[len(ranges):]
         radius = min(eccentricity, radius) #Радиус-минимальное из эксцентриситетов вершин
         diameter = max(eccentricity, diameter) #Диаметр-максимальное из эксцентриситетов вершин
-    percentile = calculate_percentile(ranges)
+    if len(nodes)<100:
+        range_perc=[]
+        for i in range(len(ranges)):
+            for j in range(ranges[i]):
+                range_perc.append(j)
+        range_perc=np.array(range_perc)
+        percentile=np.quantile(range_perc,0.9)
+    else:
+        percentile = calculate_percentile(ranges)
     return radius, diameter, percentile
 
 #Функция для вычисления 90 процентиля расстояний (можно ещё посчитать, закинув)
