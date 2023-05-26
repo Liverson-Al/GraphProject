@@ -2,6 +2,7 @@ from graphs_init.graph_read import read_undirected_graph
 from tasks.task1_1 import *
 from tasks.feature_3 import *
 from random import sample
+from tasks.regression_model import *
 
 def write_output_to_file(output_filename: str, output: List[str]):
     with open(output_filename, "w") as out:
@@ -35,10 +36,10 @@ if __name__ == '__main__':
     node_activities,graph_part_nodes=get_node_activities(graph,t_s)
     #snowball_for_regression=get_snowball(graph,graph_part_nodes,1,10000)
     X,edges=get_x_edges(graph, node_activities,graph_part_nodes,t_s)
-    for i in range(len(X)):
-        print("---------------------------------")
-        print(X[i])
-        print(len(X[i]))
+    # for i in range(len(X)):
+    #     print("---------------------------------")
+    #     print(X[i])
+    #     print(len(X[i]))
     Y=get_y(graph,edges)
-    print(Y)
+    regression_model(X,Y)
     

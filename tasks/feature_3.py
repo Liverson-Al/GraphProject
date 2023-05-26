@@ -9,16 +9,17 @@ def get_node_activities(graph:UndirectedGraph,t_s:int):
    l=0.2
    t_min=graph.t_min
    t_max=graph.t_max
+   print(t_min,t_max)
    # вычислим map весов (лин., эксп.,корн.)
    weight_map={}
       
    for i in graph.edge_map.keys():
-      if i not in weight_map.keys():
-         weight_map[i]={}
       for j in graph.edge_map[i].keys():
          for k in range(len(graph.edge_map[i][j])):
             t=graph.edge_map[i][j][k]
-            if t<=t_s:
+            if t<=t_s and i!=j:
+               if i not in weight_map.keys():
+                  weight_map[i]={}
                w_l=l+(1-l)*(t-t_min)/(t_max-t_min)
                w_e=l+(1-l)*(math.e**(3*(t-t_min)/(t_max-t_min))-1)/(math.e**3 - 1)
                w_s=l+(1-l)*math.sqrt((t-t_min)/(t_max-t_min))
@@ -128,7 +129,6 @@ def get_y(grap:UndirectedGraph, edges:list):
    Y=[]
    for i in range (len(edges)):
       edge=edges[i]
-      print(edge)
       a=int(edge[:1])
       b=int(edge[1:])
       if b in grap.edge_map[a].keys():
