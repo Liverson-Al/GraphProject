@@ -1,5 +1,6 @@
 from graphs_init.graph_read import read_undirected_graph
 from tasks.task1_1 import *
+from tasks.feature_3 import *
 from random import sample
 
 def write_output_to_file(output_filename: str, output: List[str]):
@@ -28,3 +29,7 @@ if __name__ == '__main__':
     coef=calculate_coef_pirs(graph,mwcc)
     output.append("Коэффициент ассортативности:"+str(coef))
     write_output_to_file("output/"+filename+".txt", output)
+    X=get_x(graph, 2000)
+    for i in X.keys():
+       print(i, X[i])
+    
