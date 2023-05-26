@@ -10,8 +10,9 @@ def write_output_to_file(output_filename: str, output: List[str]):
 
 if __name__ == '__main__':
     output=[]
-    filename="sample"
-    graph=read_undirected_graph(filename, 1)
+    filename="radoslaw_email_email"
+    graph=read_undirected_graph(filename)
+    print("ok")
     output.append("Количество вершин и рёбер графа:"+str(graph.v)+","+str(graph.e))
     dense=(2*graph.e)/((graph.v-1)*graph.v)
     output.append("Плотность графа:"+str(dense))
@@ -30,6 +31,7 @@ if __name__ == '__main__':
     output.append("Коэффициент ассортативности:"+str(coef))
     write_output_to_file("output/"+filename+".txt", output)
     t_s=graph.t_list[math.ceil(2/3*(len(graph.t_list)-1))]
+    print(t_s)
     node_activities,graph_part_nodes=get_node_activities(graph,t_s)
     #snowball_for_regression=get_snowball(graph,graph_part_nodes,1,10000)
     X,edges=get_x_edges(graph, node_activities,graph_part_nodes,t_s)
