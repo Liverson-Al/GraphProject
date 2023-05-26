@@ -101,7 +101,7 @@ def get_x(graph:UndirectedGraph,t_s:int):
                fourth_out[0].append(max(first_i[k],first_j[k]))
                fourth_out[1].append(max(second_i[k],second_j[k]))
                fourth_out[2].append(max(third_i[k],third_j[k]))   
-            node_activity_adjacent_nodes[i]={j:[first_out,second_out,third_out,fourth_out]}
+            node_activity_adjacent_nodes[i][j]=[first_out,second_out,third_out,fourth_out]
    return node_activity_adjacent_nodes
 
 

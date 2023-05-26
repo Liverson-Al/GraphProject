@@ -31,5 +31,7 @@ if __name__ == '__main__':
     write_output_to_file("output/"+filename+".txt", output)
     X=get_x(graph, 2000)
     for i in X.keys():
-       print(i, X[i])
+       print("--------------------------------")
+       for j in X[i].keys():
+           print(i, j, X[i][j])
     
