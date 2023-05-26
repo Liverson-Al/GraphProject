@@ -12,7 +12,7 @@ def write_output_to_file(output_filename: str, output: List[str]):
 if __name__ == '__main__':
     output=[]
     filenames=["radoslaw_email_email","small-graph","dnc-corecipient","sample"]
-    filename="radoslaw_email_email"
+    filename=filenames[0]
     graph=read_undirected_graph(filename)
     print("ok")
     output.append("Количество вершин и рёбер графа:"+str(graph.v)+","+str(graph.e))
