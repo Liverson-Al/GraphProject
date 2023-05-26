@@ -29,9 +29,12 @@ if __name__ == '__main__':
     coef=calculate_coef_pirs(graph,mwcc)
     output.append("Коэффициент ассортативности:"+str(coef))
     write_output_to_file("output/"+filename+".txt", output)
-    X=get_x(graph, 2000)
-    for i in X.keys():
+    node_activities=get_node_activities(graph,10000000)
+    random_part=sample(mwcc,1)
+    snowball_for_regression=get_snowball(graph,mwcc,1,10000)
+    X,Y=get_x_y(graph, node_activities,snowball_for_regression)
+    for i in range(len(X)):
        print("--------------------------------")
-       for j in X[i].keys():
-           print(i, j, X[i][j])
+       print(X[i])
+       print(Y[i])
     
