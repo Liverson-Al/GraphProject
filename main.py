@@ -26,9 +26,13 @@ if __name__ == '__main__':
                "testgraph_4",               #11
                "testgraph_5",               #12
                "testgraph_6",               #13
-               "testgraph_7"]               #14
-    with_t=[1,1,1,1,0,1,1,1,0,0,0,0,0,0,0]
-    index_in_list=12 # это меняем в зависимости от того, какой граф хотим протестить из списка
+               "testgraph_7",               #14
+               "opsahl-ucsocial",           #15
+               "socfb-Middlebury45",        #16
+               "socfb-Reed98"]              #17
+    with_t=[1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,0,0]
+    index_in_list=15 # это меняем в зависимости от того, какой граф хотим протестить из списка
+    restriction_number=350
     filename=filenames[index_in_list]
     graph_with_t=with_t[index_in_list]
     print(filename)
@@ -60,18 +64,25 @@ if __name__ == '__main__':
         output.append("Adamic-Adar (AA):"+str(adamic_adar(graph,1,2,graph.t_max)))
         output.append("Jaccard Coefficient (JC):"+str(jaaccard_coefficient(graph,1,2,graph.t_max)))
         output.append("Preferential Attachment (PA):"+str(preferential_attachment(graph,1,2,graph.t_max)))
-    write_output_to_file("output/"+filename+"-output"+".txt", output)
     if graph_with_t:
         t_s=graph.t_list[math.ceil(2/3*(len(graph.t_list)-1))]
         print(t_s)
         node_activities,graph_part_nodes=get_node_activities(graph,t_s)
         #snowball_for_regression=get_snowball(graph,graph_part_nodes,1,10000)
+        if len(mwcc)>500:
+            graph_part_nodes=get_snowball_for_regression(graph,graph_part_nodes,1,restriction_number,t_s)
+            # graph_part_nodes=sample(graph_part_nodes,min(len(mwcc),restriction_number))
+        print("Node activities calculated")
+        print(len(graph_part_nodes))
         X,edges=get_x_edges(graph, node_activities,graph_part_nodes,t_s)
         # for i in range(len(X)):
         #     print("---------------------------------")
         #     print(X[i])
         #     print(len(X[i]))
-        Y=get_y(graph,edges)
-        #print(Y)
-        regression_model(X,Y,filename)
+        Y=get_y(graph,edges,t_s)
+        print(Y)
+        auc=regression_model(X,Y,filename)
+        output.append("AUC:"+str(auc))
+
+    write_output_to_file("output/"+filename+"-output"+".txt", output)
     

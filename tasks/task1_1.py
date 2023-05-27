@@ -151,5 +151,20 @@ def get_snowball(graph: UndirectedGraph, start_node_list: List[int], start_nodes
         i+=1
     return start_list
 
+def get_snowball_for_regression(graph: UndirectedGraph, start_node_list: List[int], start_nodes_count:int,number_of_nodes_in_list:int,t_s:int)->List[int]:
+    start_list=sample(start_node_list,start_nodes_count)
+    queue=[]
+    visited=[]
+    queue.append(start_list[0])
+    visited.append(start_list[0])
+    while len(start_list)<min(number_of_nodes_in_list,len(start_node_list)) and queue:
+        for v in graph.edge_map[queue[0]].keys():
+            if v not in visited and min(graph.edge_map[queue[0]][v])<=t_s:
+                start_list.append(v)
+                visited.append(v)  
+                queue.append(v)
+        queue=queue[1:]
+    return start_list
+
 
 
