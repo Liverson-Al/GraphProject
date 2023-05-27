@@ -73,7 +73,7 @@ def calculate_radius_diameter_percentile(graph: UndirectedGraph, nodes: List[int
         range_perc=[]
         for i in range(len(ranges)):
             for j in range(ranges[i]):
-                range_perc.append(j)
+                range_perc.append(i)
         range_perc=np.array(range_perc)
         percentile=np.quantile(range_perc,0.9)
     else:

@@ -3,7 +3,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
 
-def regression_model(X, Y):
+def regression_model(X, Y,filename):
 
   x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.25, random_state=0)
   lr = LogisticRegression(max_iter=10000,n_jobs=-1).fit(x_train, y_train)
@@ -19,4 +19,4 @@ def regression_model(X, Y):
   plt.xlabel('False Positive Rate')
   plt.ylabel('True Positive Rate')
   plt.title('ROC-кривая')
-  plt.savefig('output/saved_figure.png')
+  plt.savefig('output/plot-'+filename+'.png')
