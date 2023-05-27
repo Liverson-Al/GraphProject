@@ -71,25 +71,35 @@ if __name__ == '__main__':
     output.append("Коэффициент ассортативности:"+str(coef))
 
     if graph_with_t:
+
         t_s=graph.t_list[math.ceil(2/3*(len(graph.t_list)-1))]
         print(t_s)
         node_activities,graph_part_nodes=get_node_activities(graph,t_s)
+
         #snowball_for_regression=get_snowball(graph,graph_part_nodes,1,10000)
+
         if len(mwcc)>1000:
             graph_part_nodes=get_snowball_for_regression(graph,graph_part_nodes,1,restriction_number,t_s)
             # graph_part_nodes=sample(graph_part_nodes,min(len(mwcc),restriction_number))
+
         print("Node activities calculated")
         print(len(graph_part_nodes))
+
         X,edges=get_x_edges(graph, node_activities,graph_part_nodes,t_s)
+
         # for i in range(len(X)):
         #     print("---------------------------------")
         #     print(X[i])
         #     print(len(X[i]))
+
         Y=get_y(graph,edges,t_s)
-        print(Y)
+        # print(Y)
+
         auc=regression_model(X,Y,filename)
         output.append("AUC:"+str(auc))
+        
     else:
+        
         output.append("Для вершин 1 и 2:")
         output.append("Common Neighbours (CN):"+str(common_neigbours(graph,1,2,graph.t_max)))
         output.append("Adamic-Adar (AA):"+str(adamic_adar(graph,1,2,graph.t_max)))
