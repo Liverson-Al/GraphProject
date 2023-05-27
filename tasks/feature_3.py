@@ -137,3 +137,60 @@ def get_y(graph:UndirectedGraph, edges:list,t_s:int):
       else:
          Y.append(0)
    return Y
+
+def get_y(graph:UndirectedGraph, edges:list, t_s:int):
+   Y=[]
+   for i in range (len(edges)):
+      edge=edges[i]
+      index=edge.find(".")
+      a=int(edge[:index])
+      b=int(edge[index+1:])
+      if b in graph.edge_map[a].keys() and max(graph.edge_map[a][b])>t_s:
+         Y.append(1)
+      else:
+         Y.append(0)
+   return Y
+
+# def get_x_big_graph(graph:UndirectedGraph,node_activity_map:dict,nodes_begin:list,t_s:int):
+#    # для каждой пары вершин найдём характеристики из feature3(3) 
+#    counted_edges=[]
+#    X=[]
+#    for k in range (len(nodes_begin)):
+#       edge=nodes_begin[k]
+#       index=edge.find(".")
+#       i=int(edge[:index])
+#       j=int(edge[index+1:])
+#       # Если рассмотренное ребро входит в 2/3 графа-пропускаем его
+#       flag=False
+#       if j in graph.edge_map[i].keys() and min(graph.edge_map[i][j])<=t_s:
+#          flag=False
+#       else:
+#          flag=True 
+#       if j!=i and flag and j in node_activity_map.keys() and i in node_activity_map.keys():
+#          first_i=node_activity_map[i][0]
+#          second_i=node_activity_map[i][1]
+#          third_i=node_activity_map[i][2]
+#          first_j=node_activity_map[j][0]
+#          second_j=node_activity_map[j][1]
+#          third_j=node_activity_map[j][2]
+#          pre_X=[]
+#          for k in range(7):
+#             pre_X.append(first_i[k]+first_j[k])
+#             pre_X.append(second_i[k]+second_j[k])
+#             pre_X.append(third_i[k]+third_j[k])
+#             pre_X.append(abs(first_i[k]-first_j[k]))
+#             pre_X.append(abs(second_i[k]-second_j[k]))
+#             pre_X.append(abs(third_i[k]-third_j[k]))
+#             pre_X.append(min(first_i[k],first_j[k]))
+#             pre_X.append(min(second_i[k],second_j[k]))
+#             pre_X.append(min(third_i[k],third_j[k]))
+#             pre_X.append(max(first_i[k],first_j[k]))
+#             pre_X.append(max(second_i[k],second_j[k]))
+#             pre_X.append(max(third_i[k],third_j[k]))
+#          counted_edges.append(str(i)+"."+str(j))
+#          pre_X.append(common_neigbours(graph,i,j,t_s))
+#          pre_X.append(adamic_adar(graph,i,j,t_s))
+#          pre_X.append(jaaccard_coefficient(graph,i,j,t_s))
+#          pre_X.append(preferential_attachment(graph,i,j,t_s))
+#          X.append(pre_X)
+#    return X,counted_edges

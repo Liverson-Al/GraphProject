@@ -31,7 +31,7 @@ if __name__ == '__main__':
                "socfb-Middlebury45",        #16
                "socfb-Reed98"]              #17
     with_t=[1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,0,0]
-    index_in_list=15 # это меняем в зависимости от того, какой граф хотим протестить из списка
+    index_in_list=6 # это меняем в зависимости от того, какой граф хотим протестить из списка
     restriction_number=350
     filename=filenames[index_in_list]
     graph_with_t=with_t[index_in_list]
